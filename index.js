@@ -5,6 +5,8 @@ const leaveRouter =require("./routers/leave router")
 const trainingRouter =require("./routers/training router")
 const timesheetRouter =require("./routers/timesheet router")
 const designationRouter =require("./routers/designation router")
+const userLogin =require("./routers/userlogin rouder")
+
 
 
 
@@ -27,6 +29,8 @@ app.get('/', (req, res) => {
   app.use('/training',trainingRouter)
   app.use('/timesheet',timesheetRouter)
   app.use('/designation',designationRouter)
+  app.use('/userlogin',userLogin)
+
 
  
   

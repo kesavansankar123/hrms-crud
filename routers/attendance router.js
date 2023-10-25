@@ -3,7 +3,7 @@ const router=require('express').Router();
 // const bcrypt= require('bcrypt')
 // const genaratetoken=require('../token/token')
 // const verifytoken=require('../middleware/middleware')
-const nodemailer =require('nodemailer')
+const nodemailer =require('nodemailer');
 
 
 
@@ -22,7 +22,7 @@ router.route('/registration').post((req,res)=>{
     .catch(err => res.status(400).json('error:'+err))
 
 })
-
+ 
 
 // router.route('/datas').get(async (req,res)=>{
 //     try{
@@ -33,14 +33,14 @@ router.route('/registration').post((req,res)=>{
 //     }
 // });
 
-router.route('/datas/:SNo').get(async (req,res)=>{
-    try{
-        var users= await loginUsers.find({SNo:req.params.SNo});
-        res.json(users);
-    }catch(error) {
-        res.status(500).json({message:error.message})
-    }
-});
+// router.route('/datas/:SNo').get(async (req,res)=>{
+//     try{
+//         var users= await loginUsers.find({SNo:req.params.SNo});
+//         res.json(users);
+//     }catch(error) {
+//         res.status(500).json({message:error.message})
+//     }
+// });
 
 router.route('/update/:id').put(async (req,res)=>{
     try{
