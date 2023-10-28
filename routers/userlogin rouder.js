@@ -82,12 +82,12 @@ router.post('/reset-email',async (req,res)=>{
         return res.status(404).json({message:'user not found'})
     }
 
-    const token = await jwt.sign({date:new Date},"gokulsankar")
+    const token = Math.random().toString(36).slice(-6)
     console.log(token);
     // res.json({message:'Success',token})
 
     user.resetpasswordToken = token ;
-    // user.resetpasswordExpires= Date.now() + 3600000;
+    user.resetpasswordExpires= Date.now() + 3600000;
      
     await user.save()
 
@@ -120,14 +120,10 @@ router.post('/reset-email',async (req,res)=>{
     const { token } = req.params;
     const { password }=req.body;
     try{
-        const tokenResult= await jwt.verify(
-            token,"gokulsankar"
-        );
-
         // res.json({message:'success'});
         const user= await loginUsers.findOne({
-            resetpasswordToken : tokenResult
-        //     // resetpasswordExpires : {  $gt: Date.now() },
+            resetpasswordToken : token,
+            resetpasswordExpires : {  $gt: Date.now() },
         });
 
          if(!user){
@@ -137,7 +133,7 @@ router.post('/reset-email',async (req,res)=>{
         const hashPassword= await bcrypt.hash(password,10);
         user.password = hashPassword;  
         user.resetpasswordToken=null;
-        // user.resetpasswordExpires=null;
+        user.resetpasswordExpires=null;
 
         await user.save();
 
